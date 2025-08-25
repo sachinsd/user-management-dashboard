@@ -1,16 +1,16 @@
 # User Management Dashboard – Delivery Plan (v1)
 
-## 1) Goals & Non‑Goals
+## 1) Goals & Non-Goals
 **Goals**
 - Manage users, roles, and permissions from a secure web dashboard.
 - Provide auditable trails of every sensitive action.
 - Offer clean APIs through an API Gateway consumable by the UI and external clients.
-- Ship a production‑ready MVP with CI/CD, observability, and security hardening.
+- Ship a production-ready MVP with CI/CD, observability, and security hardening.
 
-**Non‑Goals (MVP)**
+**Non-Goals (MVP)**
 - SSO federation with multiple IdPs (can be Phase 2).
 - Granular ABAC policies beyond RBAC (future).
-- Multi‑tenant partitioning (optional add‑on later).
+- Multi-tenant partitioning (optional add-on later).
 
 ---
 
@@ -27,8 +27,9 @@
 - React + Vite + TypeScript; shadcn/ui, Tailwind; React Query; Zod for validation; Playwright for e2e.
 
 **Gateway & Services**
-- Java 21 + Spring Boot; OpenAPI first; Swagger UI in dev; Feign clients/RestTemplate internally.
-- AuthN/AuthZ: JWT with refresh tokens; RBAC middleware and per‑route guards.
+- Java 21 + Spring Boot (multi-module project).
+- OpenAPI first; Swagger UI in dev; Feign clients/RestTemplate internally.
+- AuthN/AuthZ: JWT with refresh tokens; RBAC middleware and per-route guards.
 
 **Data**
 - User RDB: PostgreSQL 15+.
@@ -148,12 +149,12 @@ create table role_permissions (
 
 ## 7) Security Controls
 - **Password storage**: Argon2id with memory cost ≥ 64MB, time cost ≥ 3.
-- **JWT**: RS256, 15‑min access, 7‑day refresh, rotation with reuse detection.
-- **RBAC**: route‑level guards; policy cache (Redis) with 60s TTL; admin‑only endpoints.
+- **JWT**: RS256, 15-min access, 7-day refresh, rotation with reuse detection.
+- **RBAC**: route-level guards; policy cache (Redis) with 60s TTL; admin-only endpoints.
 - **Input**: Bean Validation (Jakarta Validation) in DTOs + size limits on payloads; allowlist CORS.
-- **Transport**: HTTPS‑only; HSTS; secure cookies optional.
-- **Secrets**: least privilege DB users; app‑level service accounts; rotate quarterly.
-- **Audit integrity**: append‑only collection; optional daily digest hash anchored to object storage.
+- **Transport**: HTTPS-only; HSTS; secure cookies optional.
+- **Secrets**: least privilege DB users; app-level service accounts; rotate quarterly.
+- **Audit integrity**: append-only collection; optional daily digest hash anchored to object storage.
 
 ---
 
@@ -170,15 +171,15 @@ create table role_permissions (
 - Unit tests (JUnit + Mockito) targeting services and guards.
 - Contract tests from OpenAPI using Spring Cloud Contract or Schemathesis.
 - e2e tests (Playwright) for critical flows.
-- Load tests (k6) target list‑users and audit search.
+- Load tests (k6) target list-users and audit search.
 - Chaos: pod restarts, Kafka broker down, DB failover drills.
 
 ---
 
 ## 10) Delivery Plan (12–14 weeks, MVP)
 **Phase 0 — Project setup (Week 1)**
-- Repo scaffolding (multi‑module Maven/Gradle for services, separate frontend).
-- CI (lint, test, docker build) + pre‑commit hooks.
+- Repo scaffolding (multi-module Maven/Gradle for services, separate frontend).
+- CI (lint, test, docker build) + pre-commit hooks.
 
 **Phase 1 — Auth & Users (Weeks 2–4)**
 - User schema & migrations; login/refresh/logout; RBAC MVP; users CRUD + pagination.
@@ -220,10 +221,28 @@ create table role_permissions (
 
 ---
 
-## 13) Next Steps (what I’ll implement first)
-1) Multi‑module Maven/Gradle setup: API Gateway, User Service, Audit Service.
+## 13) Repo Structure (Java + Frontend)
+```
+user-management/
+├── gateway/                # Spring Boot API Gateway
+│   └── src/main/java/...
+├── user-service/           # Spring Boot User Service
+│   └── src/main/java/...
+├── audit-service/          # Spring Boot Audit Service
+│   └── src/main/java/...
+├── common-lib/             # Shared DTOs, utils, OpenAPI clients
+│   └── src/main/java/...
+├── frontend/               # React + TS dashboard
+│   └── src/
+├── docker/                 # Dockerfiles, docker-compose
+├── helm/                   # Kubernetes Helm charts
+├── pom.xml (parent)        # Multi-module Maven build
+└── .github/workflows/ci.yml
+```
+
+---
+
+## 14) Next Steps (what I’ll implement first)
+1) Multi-module Maven/Gradle setup: API Gateway, User Service, Audit Service, Common Lib.
 2) PostgreSQL migrations and basic Users API + tests.
 3) Audit event publishing stub + consumer skeleton.
-
-
-
