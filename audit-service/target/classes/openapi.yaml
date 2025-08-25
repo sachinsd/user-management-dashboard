@@ -1,0 +1,96 @@
+openapi: 3.0.3
+info:
+  title: Audit Service API
+  version: 1.0.0
+  description: API contracts for audit event management
+servers:
+  - url: http://localhost:8082
+paths:
+  /audit/events:
+    get:
+      summary: List audit events with filters and pagination
+      parameters:
+        - in: query
+          name: actor
+          schema:
+            type: string
+        - in: query
+          name: action
+          schema:
+            type: string
+        - in: query
+          name: target
+          schema:
+            type: string
+        - in: query
+          name: outcome
+          schema:
+            type: string
+        - in: query
+          name: startTime
+          schema:
+            type: string
+            format: date-time
+        - in: query
+          name: endTime
+          schema:
+            type: string
+            format: date-time
+        - in: query
+          name: page
+          schema:
+            type: integer
+        - in: query
+          name: size
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: List of audit events
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AuditEvent'
+components:
+  schemas:
+    AuditEvent:
+      type: object
+      properties:
+        _id:
+          type: string
+        ts:
+          type: string
+          format: date-time
+        actor:
+          type: object
+          properties:
+            id:
+              type: string
+            email:
+              type: string
+        action:
+          type: string
+        target:
+          type: object
+          properties:
+            type:
+              type: string
+            id:
+              type: string
+        context:
+          type: object
+          properties:
+            ip:
+              type: string
+            ua:
+              type: string
+        payload:
+          type: object
+        outcome:
+          type: string
+        request_id:
+          type: string
+        trace_id:
+          type: string

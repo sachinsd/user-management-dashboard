@@ -1,0 +1,32 @@
+# Example GitHub Actions CI workflow for Java + Frontend
+name: CI
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up JDK 21
+        uses: actions/setup-java@v3
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+      - name: Build with Maven
+        run: mvn -B clean verify
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+      - name: Install frontend dependencies
+        run: |
+          cd frontend
+          npm ci
+      - name: Run frontend build
+        run: |
+          cd frontend
+          npm run build
+      # Add more steps for tests, Docker, etc. as needed

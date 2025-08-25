@@ -1,0 +1,25 @@
+# Spring Boot User Service
+
+server:
+  port: 8081
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/userdb
+    username: user
+    password: password
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  application:
+    name: user-service
+
+logging:
+  level:
+    org.springframework: INFO
+    com.example.userservice: DEBUG
