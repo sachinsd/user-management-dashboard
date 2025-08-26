@@ -1,23 +1,17 @@
+
 # Spring Boot Audit Service
 
 server:
   port: 8082
 
 spring:
-  datasource:
-    url: jdbc:postgresql://localhost:5432/auditdb
-    username: audit
-    password: password
-    driver-class-name: org.postgresql.Driver
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
   application:
     name: audit-service
+
+elasticsearch:
+  uris: http://localhost:9200
+  username: elastic
+  password: changeme
 
 logging:
   level:
