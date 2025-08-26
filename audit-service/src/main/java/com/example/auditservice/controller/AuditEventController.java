@@ -8,8 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/audit/events")
+@RequestMapping("/events")
 public class AuditEventController {
+
     @GetMapping
     public List<Map<String, Object>> listAuditEvents() {
         // TODO: Implement audit event listing
