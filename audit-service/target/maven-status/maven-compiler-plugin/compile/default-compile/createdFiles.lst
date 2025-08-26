@@ -1,2 +1,3 @@
 com/example/auditservice/controller/AuditEventController.class
+com/example/auditservice/controller/HealthController.class
 com/example/auditservice/AuditServiceApplication.class

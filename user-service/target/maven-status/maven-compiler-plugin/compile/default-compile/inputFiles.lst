@@ -1,5 +1,7 @@
 /Users/sachin/work/user-management-dashboard/user-service/src/main/java/com/example/userservice/UserServiceApplication.java
+/Users/sachin/work/user-management-dashboard/user-service/src/main/java/com/example/userservice/controller/AuditEventController.java
 /Users/sachin/work/user-management-dashboard/user-service/src/main/java/com/example/userservice/controller/AuthController.java
+/Users/sachin/work/user-management-dashboard/user-service/src/main/java/com/example/userservice/controller/HealthController.java
 /Users/sachin/work/user-management-dashboard/user-service/src/main/java/com/example/userservice/controller/PermissionController.java
 /Users/sachin/work/user-management-dashboard/user-service/src/main/java/com/example/userservice/controller/RoleController.java
 /Users/sachin/work/user-management-dashboard/user-service/src/main/java/com/example/userservice/controller/UserController.java

@@ -1,2 +1,3 @@
 /Users/sachin/work/user-management-dashboard/audit-service/src/main/java/com/example/auditservice/AuditServiceApplication.java
 /Users/sachin/work/user-management-dashboard/audit-service/src/main/java/com/example/auditservice/controller/AuditEventController.java
+/Users/sachin/work/user-management-dashboard/audit-service/src/main/java/com/example/auditservice/controller/HealthController.java

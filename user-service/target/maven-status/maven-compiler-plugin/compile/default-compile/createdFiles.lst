@@ -2,4 +2,5 @@ com/example/userservice/controller/UserController.class
 com/example/userservice/controller/PermissionController.class
 com/example/userservice/UserServiceApplication.class
 com/example/userservice/controller/RoleController.class
+com/example/userservice/controller/HealthController.class
 com/example/userservice/controller/AuthController.class
