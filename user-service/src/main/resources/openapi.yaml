@@ -240,53 +240,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
-  /audit/events:
-    get:
-      summary: List audit events with filters and pagination
-      parameters:
-        - in: query
-          name: actor
-          schema:
-            type: string
-        - in: query
-          name: action
-          schema:
-            type: string
-        - in: query
-          name: target
-          schema:
-            type: string
-        - in: query
-          name: outcome
-          schema:
-            type: string
-        - in: query
-          name: startTime
-          schema:
-            type: string
-            format: date-time
-        - in: query
-          name: endTime
-          schema:
-            type: string
-            format: date-time
-        - in: query
-          name: page
-          schema:
-            type: integer
-        - in: query
-          name: size
-          schema:
-            type: integer
-      responses:
-        '200':
-          description: List of audit events
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/AuditEvent'
 components:
   schemas:
     User:

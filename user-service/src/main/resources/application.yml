@@ -1,31 +1,38 @@
-# Spring Boot User Service
-
+spring:
+  application:
+    name: user-service
 server:
   port: 8081
 
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health,info
-
+# Local profile
+---
 spring:
+  config:
+    activate:
+      on-profile: local
   datasource:
     url: jdbc:postgresql://localhost:5432/userdb
-    username: user
+    username: userdb
     password: password
-    driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
     show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
-  application:
-    name: user-service
+  flyway:
+    enabled: true
 
-logging:
-  level:
-    org.springframework: INFO
-    com.example.userservice: DEBUG
+# Docker profile
+---
+spring:
+  config:
+    activate:
+      on-profile: docker
+  datasource:
+    url: jdbc:postgresql://postgres:5432/userdb
+    username: userdb
+    password: password
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  flyway:
+    enabled: true

@@ -1,19 +1,27 @@
-
-# Spring Boot Audit Service
-
-server:
-  port: 8082
-
 spring:
   application:
     name: audit-service
+server:
+  port: 8082
 
-elasticsearch:
-  uris: http://localhost:9200
-  username: elastic
-  password: changeme
+# Local profile
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+  # elasticsearch:
+  #   uris: http://localhost:9200
+  #   username: elastic
+  #   password: changeme   # update as per your ES setup
 
-logging:
-  level:
-    org.springframework: INFO
-    com.example.auditservice: DEBUG
+# Docker profile
+---
+spring:
+  config:
+    activate:
+      on-profile: docker
+  # elasticsearch:
+  #   uris: http://elasticsearch:9200
+  #   username: elastic
+  #   password: changeme

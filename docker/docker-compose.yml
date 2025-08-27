@@ -1,0 +1,56 @@
+version: '3.8'
+services:
+  user-service:
+    build: ../user-service
+    image: user-service
+    ports:
+      - "8081:8081"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    # depends_on:
+    #   - postgres
+    # environment:
+    #   SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/userdb
+    #   SPRING_DATASOURCE_USERNAME: user
+    #   SPRING_DATASOURCE_PASSWORD: password
+  audit-service:
+    build: ../audit-service
+    image: audit-service
+    ports:
+      - "8082:8082"
+    # depends_on:
+    #   - elasticsearch
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    #   ELASTICSEARCH_URIS: http://elasticsearch:9200
+    #   ELASTICSEARCH_USERNAME: elastic
+    #   ELASTICSEARCH_PASSWORD: changeme
+  gateway:
+    build: ../gateway
+    image: gateway
+    ports:
+      - "8080:8080"
+    depends_on:
+      - user-service
+      - audit-service
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+  # postgres:
+  #   image: postgres:15
+  #   environment:
+  #     POSTGRES_DB: userdb
+  #     POSTGRES_USER: user
+  #     POSTGRES_PASSWORD: password
+  #   ports:
+  #     - "5432:5432"
+  #   volumes:
+  #     - pgdata:/var/lib/postgresql/data
+  # elasticsearch:
+  #   image: docker.elastic.co/elasticsearch/elasticsearch:8.13.0
+  #   environment:
+  #     - discovery.type=single-node
+  #     - ELASTIC_PASSWORD=changeme
+  #   ports:
+  #     - "9200:9200"
+  #   volumes:
+  #     - esdata:/usr/share/elasticsearch/data

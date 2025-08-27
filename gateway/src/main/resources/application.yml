@@ -1,35 +1,40 @@
-# Spring Boot API Gateway
+spring:
+  application:
+    name: gateway
 
 server:
   port: 8080
 
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health,info
-
+---
 spring:
-  application:
-    name: gateway
+  config:
+    activate:
+      on-profile: local
   cloud:
     gateway:
       routes:
-        # Example route config
         - id: user-service
           uri: http://localhost:8081
           predicates:
             - Path=/users/**, /roles/**, /permissions/**
-          filters:
-            - StripPrefix=1 
         - id: audit-service
           uri: http://localhost:8082
           predicates:
             - Path=/audit/**
-          filters:
-            - StripPrefix=1
 
-logging:
-  level:
-    org.springframework: INFO
-    com.example.gateway: DEBUG
+---
+spring:
+  config:
+    activate:
+      on-profile: docker
+  cloud:
+    gateway:
+      routes:
+        - id: user-service
+          uri: http://user-service:8081
+          predicates:
+            - Path=/users/**, /roles/**, /permissions/** 
+        - id: audit-service
+          uri: http://audit-service:8082
+          predicates:
+            - Path=/audit/**

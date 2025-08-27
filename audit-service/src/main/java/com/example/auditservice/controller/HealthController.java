@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class HealthController {
-    @GetMapping("/healthz")
+    @GetMapping("/audit/healthz")
     public Map<String, String> healthz() {
         Map<String, String> status = new HashMap<>();
         status.put("status", "ok");
